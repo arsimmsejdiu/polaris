@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, IBM_Plex_Mono } from "next/font/google";
-import { ThemeProvider } from "@/components/ThemeProvider";
+
 import { ClerkProvider } from "@clerk/nextjs";
+import { ConvexClientProvider } from "@/components/ConvexClientProvider";
+
 import { dark } from "@clerk/themes";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 import "./globals.css";
 
@@ -30,8 +33,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${ibmPlexMono.variable} antialiased`}>
-        <ClerkProvider appearance={{
-          theme: dark,
+        <ClerkProvider
+          appearance={{
+            theme: dark,
           }}
         >
           <ThemeProvider
@@ -39,7 +43,9 @@ export default function RootLayout({
             defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
-          >{children}</ThemeProvider>
+          >
+            <ConvexClientProvider>{children}</ConvexClientProvider>
+          </ThemeProvider>
         </ClerkProvider>
       </body>
     </html>
